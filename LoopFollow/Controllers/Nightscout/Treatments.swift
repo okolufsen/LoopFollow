@@ -11,7 +11,6 @@ extension MainViewController {
     // NS Treatments Web Call
     // Downloads Basal, Bolus, Carbs, BG Check, Notes, Overrides
     func WebLoadNSTreatments() {
-        if UserDefaultsRepository.debugLog.value { self.writeDebugLog(value: "Download: Treatments") }
         if !UserDefaultsRepository.downloadTreatments.value { return }
         
         let startTimeString = dateTimeUtils.getDateTimeString(addingDays: -1 * UserDefaultsRepository.downloadDays.value)
@@ -28,10 +27,10 @@ extension MainViewController {
                         self.updateTreatments(entries: entries)
                     }
                 } else {
-                    print("Error: Unexpected data structure")
+                    LogManager.shared.log(category: .nightscout, message: "WebLoadNSTreatments, Unexpected data structure")
                 }
             case .failure(let error):
-                print("Error: \(error.localizedDescription)")
+                LogManager.shared.log(category: .nightscout, message: "WebLoadNSTreatments, error \(error.localizedDescription)")
             }
         }
     }
@@ -74,13 +73,12 @@ extension MainViewController {
                 bolus.append(entry)
             case "Carb Correction":
                 carbs.append(entry)
-            case "Temporary Override":
+            case "Temporary Override", "Exercise":
                 temporaryOverride.append(entry)
             case "Temporary Target":
                 temporaryTarget.append(entry)
             case "Note":
                 note.append(entry)
-                print("Note: \(String(describing: entry))")
             case "BG Check":
                 bgCheck.append(entry)
             case "Suspend Pump":
@@ -143,11 +141,15 @@ extension MainViewController {
                 clearOldBGCheck()
             }
         }
-        if temporaryOverride.count == 0 && temporaryTarget.count == 0 && overrideGraphData.count > 0 {
+        if temporaryOverride.count == 0 && overrideGraphData.count > 0 {
             clearOldOverride()
         }
         if temporaryOverride.count > 0 {
             processNSOverrides(entries: temporaryOverride)
+        }
+
+        if temporaryTarget.count == 0 && tempTargetGraphData.count > 0 {
+            clearOldTempTarget()
         }
         if temporaryTarget.count > 0 {
             processNSTemporaryTarget(entries: temporaryTarget)

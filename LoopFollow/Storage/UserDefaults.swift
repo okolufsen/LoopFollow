@@ -57,8 +57,6 @@ class UserDefaultsRepository {
     static let hideInfoTable = UserDefaultsValue<Bool>(key: "hideInfoTable", default: false)
 
     // Nightscout Settings
-    static let showNS = UserDefaultsValue<Bool>(key: "showNS", default: false)
-    //static let url = UserDefaultsValue<String>(key: "url", default: "")
     static let token = UserDefaultsValue<String>(key: "token", default: "")
     static let units = UserDefaultsValue<String>(key: "units", default: "mg/dL")
 
@@ -81,7 +79,6 @@ class UserDefaultsRepository {
     }
 
     // Dexcom Share Settings
-    static let showDex = UserDefaultsValue<Bool>(key: "showDex", default: false)
     static let shareUserName = UserDefaultsValue<String>(key: "shareUserName", default: "")
     static let sharePassword = UserDefaultsValue<String>(key: "sharePassword", default: "")
     static let shareServer = UserDefaultsValue<String>(key: "shareServer", default: "US")
@@ -121,8 +118,10 @@ class UserDefaultsRepository {
     static let speakHighBG = UserDefaultsValue<Bool>(key: "speakHighBG", default: false)
     static let speakLanguage = UserDefaultsValue<String>(key: "speakLanguage", default: "en")
     static let showDisplayName = UserDefaultsValue<Bool>(key: "showDisplayName", default: false)
-    static let backgroundRefreshFrequency = UserDefaultsValue<Double>(key: "backgroundRefreshFrequency", default: 1)
+
+    // Deprecated, used to detect if backgroundRefresh was set to off. TODO: Remove in the beginning of 2026
     static let backgroundRefresh = UserDefaultsValue<Bool>(key: "backgroundRefresh", default: true)
+
     static let appBadge = UserDefaultsValue<Bool>(key: "appBadge", default: true)
     static let dimScreenWhenIdle = UserDefaultsValue<Int>(key: "dimScreenWhenIdle", default: 0)
     static let forceDarkMode = UserDefaultsValue<Bool>(key: "forceDarkMode", default: true)
@@ -143,7 +142,6 @@ class UserDefaultsRepository {
     static let graphBasal = UserDefaultsValue<Bool>(key: "graphBasal", default: true)
     static let graphBolus = UserDefaultsValue<Bool>(key: "graphBolus", default: true)
     static let graphCarbs = UserDefaultsValue<Bool>(key: "graphCarbs", default: true)
-    static let debugLog = UserDefaultsValue<Bool>(key: "debugLog", default: false)
     static let bgUpdateDelay = UserDefaultsValue<Int>(key: "bgUpdateDelay", default: 10)
     static let downloadDays = UserDefaultsValue<Int>(key: "downloadDays", default: 1)
     
@@ -293,7 +291,7 @@ class UserDefaultsRepository {
     
     
     static let alertMissedReadingActive = UserDefaultsValue<Bool>(key: "alertMissedReadingActive", default: false)
-    static let alertMissedReading = UserDefaultsValue<Int>(key: "alertMissedReading", default: 30)
+    static let alertMissedReading = UserDefaultsValue<Int>(key: "alertMissedReading", default: 31)
     static let alertMissedReadingSnooze = UserDefaultsValue<Int>(key: "alertMissedReadingSnooze", default: 30)
     static let alertMissedReadingSnoozedTime = UserDefaultsValue<Date?>(key: "alertMissedReadingSnoozedTime", default: nil)
     static let alertMissedReadingIsSnoozed = UserDefaultsValue<Bool>(key: "alertMissedReadingIsSnoozed", default: false)
@@ -310,7 +308,7 @@ class UserDefaultsRepository {
     
     
     static let alertNotLoopingActive = UserDefaultsValue<Bool>(key: "alertNotLoopingActive", default: false)
-    static let alertNotLooping = UserDefaultsValue<Int>(key: "alertNotLooping", default: 30)
+    static let alertNotLooping = UserDefaultsValue<Int>(key: "alertNotLooping", default: 31)
     static let alertNotLoopingSnooze = UserDefaultsValue<Int>(key: "alertNotLoopingSnooze", default: 30)
     static let alertNotLoopingUseLimits = UserDefaultsValue<Bool>(key: "alertNotLoopingUseLimits", default: false)
     static let alertNotLoopingLowerLimit = UserDefaultsValue<Float>(key: "alertNotLoopingBelowBG", default: 100.0)
@@ -423,6 +421,36 @@ class UserDefaultsRepository {
     static let alertOverrideEndAutosnoozeDay = UserDefaultsValue<Bool>(key: "alertOverrideEndAutosnoozeDay", default: false)
     static let alertOverrideEndAutosnoozeNight = UserDefaultsValue<Bool>(key: "alertOverrideEndAutosnoozeNight", default: false)
 
+    static let alertTempTargetStart = UserDefaultsValue<Bool>(key: "alertTempTargetStart", default: false)
+    static let alertTempTargetStartQuiet = UserDefaultsValue<Bool>(key: "alertTempTargetStartQuiet", default: false)
+    static let alertTempTargetStartRepeat = UserDefaultsValue<String>(key: "alertTempTargetStartRepeat", default: "Never")
+    static let alertTempTargetStartDayTime = UserDefaultsValue<Bool>(key: "alertTempTargetStartDayTime", default: false)
+    static let alertTempTargetStartNightTime = UserDefaultsValue<Bool>(key: "alertTempTargetStartNightTime", default: false)
+    static let alertTempTargetStartAudible = UserDefaultsValue<String>(key: "alertTempTargetStartRepeatAudible", default: "Always")
+    static let alertTempTargetStartDayTimeAudible = UserDefaultsValue<Bool>(key: "alertTempTargetStartDayTimeAudible", default: true)
+    static let alertTempTargetStartNightTimeAudible = UserDefaultsValue<Bool>(key: "alertTempTargetStartNightTimeAudible", default: true)
+    static let alertTempTargetStartSound = UserDefaultsValue<String>(key: "alertTempTargetStartSound", default: "Ending_Reached")
+    static let alertTempTargetStartSnoozedTime = UserDefaultsValue<Date?>(key: "alertTempTargetStartSnoozedTime", default: nil)
+    static let alertTempTargetStartIsSnoozed = UserDefaultsValue<Bool>(key: "alertTempTargetStartIsSnoozed", default: false)
+    static let alertTempTargetStartAutosnooze = UserDefaultsValue<String>(key: "alertTempTargetStartAutosnooze", default: "Never")
+    static let alertTempTargetStartAutosnoozeDay = UserDefaultsValue<Bool>(key: "alertTempTargetStartAutosnoozeDay", default: false)
+    static let alertTempTargetStartAutosnoozeNight = UserDefaultsValue<Bool>(key: "alertTempTargetStartAutosnoozeNight", default: false)
+
+    static let alertTempTargetEnd = UserDefaultsValue<Bool>(key: "alertTempTargetEnd", default: false)
+    static let alertTempTargetEndQuiet = UserDefaultsValue<Bool>(key: "alertTempTargetEndQuiet", default: false)
+    static let alertTempTargetEndRepeat = UserDefaultsValue<String>(key: "alertTempTargetEndRepeat", default: "Never")
+    static let alertTempTargetEndDayTime = UserDefaultsValue<Bool>(key: "alertTempTargetEndDayTime", default: false)
+    static let alertTempTargetEndNightTime = UserDefaultsValue<Bool>(key: "alertTempTargetEndNightTime", default: false)
+    static let alertTempTargetEndAudible = UserDefaultsValue<String>(key: "alertTempTargetEndRepeatAudible", default: "Always")
+    static let alertTempTargetEndDayTimeAudible = UserDefaultsValue<Bool>(key: "alertTempTargetEndDayTimeAudible", default: true)
+    static let alertTempTargetEndNightTimeAudible = UserDefaultsValue<Bool>(key: "alertTempTargetEndNightTimeAudible", default: true)
+    static let alertTempTargetEndSound = UserDefaultsValue<String>(key: "alertTempTargetEndSound", default: "Alert_Tone_Busy")
+    static let alertTempTargetEndSnoozedTime = UserDefaultsValue<Date?>(key: "alertTempTargetEndSnoozedTime", default: nil)
+    static let alertTempTargetEndIsSnoozed = UserDefaultsValue<Bool>(key: "alertTempTargetEndIsSnoozed", default: false)
+    static let alertTempTargetEndAutosnooze = UserDefaultsValue<String>(key: "alertTempTargetEndAutosnooze", default: "Never")
+    static let alertTempTargetEndAutosnoozeDay = UserDefaultsValue<Bool>(key: "alertTempTargetEndAutosnoozeDay", default: false)
+    static let alertTempTargetEndAutosnoozeNight = UserDefaultsValue<Bool>(key: "alertTempTargetEndAutosnoozeNight", default: false)
+    
     static let alertPump = UserDefaultsValue<Bool>(key: "alertPump", default: false)
     static let alertPumpAt = UserDefaultsValue<Int>(key: "alertPumpAt", default: 10) //Units
     static let alertPumpQuiet = UserDefaultsValue<Bool>(key: "alertPumpQuiet", default: false)
